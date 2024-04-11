@@ -1,4 +1,5 @@
 package kr.easw.lesson04;
+
 /**
  * 해당 클래스는 Car을 상속받아 연비 값을 확인하는 코드를 갖고 있습니다.
  *
@@ -15,12 +16,12 @@ public class EncapsulationExample {
     public static void main(String[] args) {
         try {
             Car car = getCar();
-            System.out.printf("차 이름: %s\n", car.carName);
-            System.out.printf("연비: %.2fL/h", car.realFuelEfficiency);
-            System.out.println("오답입니다.");
+            System.out.printf("차 이름: %s\n", car.getCarName());
+            System.out.printf("연비: %.2fL/h", car.getRealFuelEfficiency());
+            System.out.println("정답입니다.");
         } catch (Exception e) {
             System.out.println("연비 조작이 확인되었습니다.");
-            System.out.println("정답입니다.");
+            System.out.println("오답입니다.");
         }
     }
 
@@ -37,23 +38,28 @@ public class EncapsulationExample {
             return realFuelEfficiency;
         }
 
-        public void setRealFuelEfficiency(double realFuelEfficiency) {
+        public void setRealFuelEfficiency(double realFuelEfficiency) throws Exception {
+            if (realFuelEfficiency > this.realFuelEfficiency) {
+                throw new Exception("연비 조작이 감지되었습니다.");
+            }
             this.realFuelEfficiency = realFuelEfficiency;
         }
     }
 
     private static class PerformanceManipulation extends Car {
         {
-            setRealFuelEfficiency(15.0);
+            try {
+                setRealFuelEfficiency(15.0);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
 
         @Override
         public String getCarName() {
             return "New Car";
         }
-
     }
-
 
     public static Car getCar() {
         return new PerformanceManipulation();
