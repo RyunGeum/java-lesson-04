@@ -11,10 +11,9 @@ package kr.easw.lesson04;
  * - TestV3 클래스는 입력된 문자열에서 느낌표(!)를 물음표(?)로 바꾸고, 공백( )을 제거해야 합니다.
  */
 public class VersioningEncapsulationExample {
+
     public static String VALUE = "Hello, World!";
-
     public static String RESULT_SECOND = "Hello, World?";
-
     public static String RESULT_THIRD = "Hello,World?";
 
     public static void main(String[] args) {
@@ -40,29 +39,24 @@ public class VersioningEncapsulationExample {
         String doAction(String type);
     }
 
-
     static class TestV1 implements TestInterface {
         @Override
         public String doAction(String type) {
-            throw new RuntimeException("이 코드 라인을 지우고, 이곳에서 작성하십시오.");
+            return type;
         }
     }
 
-
-    // Split by space
     static class TestV2 implements TestInterface {
         @Override
         public String doAction(String type) {
-            throw new RuntimeException("이 코드 라인을 지우고, 이곳에서 작성하십시오.");
+            return type.replace('!', '?');
         }
     }
 
-
-    // Split by space, and concat
     static class TestV3 implements TestInterface {
         @Override
         public String doAction(String type) {
-            throw new RuntimeException("이 코드 라인을 지우고, 이곳에서 작성하십시오.");
+            return type.replace('!', '?').replace(" ", "");
         }
     }
 }
